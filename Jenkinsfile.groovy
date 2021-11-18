@@ -14,7 +14,7 @@
             }
             stage('Deploy in Staging Environment'){
                 steps{
-                    build job: 'Maven'
+                    build job: 'Tomcat_staging'
      
                 }
                 
