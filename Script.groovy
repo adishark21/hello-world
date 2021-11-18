@@ -1,7 +1,7 @@
 job('first groovy script job in Jenkins') {
     description ("first groovy script")
     scm {
-        github('jenkinsci/job-dsl-plugin', 'master')
+        github("https://github.com/adishark21/hello-world.git", 'master')
     }
     triggers {
         scm ('* * * * *')
