@@ -1,26 +1,31 @@
-pipeline {
-    agent any
-    stages {
-      stage ('Stage1') { 
-        steps { 
-          echo "stage 1 print"
-          echo "stage 1 extra print"
+    pipeline {
+        agent any
+        stages {
+            stage('Build Application') {
+                steps {
+                    sh 'mvn clean package'
+                }
+                post {
+                    success {
+                        echo "Now Archiving the Artifacts...."
+                        archiveArtifacts artifacts: '**/*.war'
+                    }
+                }
+            }
+            stage('Deploy in Staging Environment'){
+                steps{
+                    build job: 'Deploy_Application_Staging_Env'
+     
+                }
+                
+            }
+            stage('Deploy to Production'){
+                steps{
+                    timeout(time:5, unit:'DAYS'){
+                        input message:'Approve PRODUCTION Deployment?'
+                    }
+                    build job: 'Deploy_Application_Prod_Env'
+                }
+            }
         }
-      }
-      stage ('Stage2') { 
-        steps { 
-          echo "stage 2 print"
-        }
-      }
-      stage ('Stage3') { 
-        steps { 
-          echo "stage 3 print"
-        }
-      }
-      stage ('Stage4') { 
-        steps { 
-            echo "stage 4 print"
-        }
-      }
     }
-}
