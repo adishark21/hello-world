@@ -1,8 +1,5 @@
 # Pull base image 
-FROM tomcat:8-jre8 
-
-# Maintainer 
-MAINTAINER Aditya K "adishar21@gmail.com" 
+FROM tomcat:8.0 
 
 ADD **/*.war /usr/local/tomcat/webapps
  
