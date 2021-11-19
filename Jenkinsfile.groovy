@@ -9,18 +9,12 @@
                     success {
                         echo "Now Archiving the Artifacts...."
                         archiveArtifacts artifacts: '**/*.war'
-                    }
+                            }
+                      }
+           }
+           Stage('Create Tomcat Docker Image'){
+                steps {
+                    sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
                 }
             }
-            stage('Deploy in Staging Environment'){
-                steps{
-                    timeout(time:5, unit:'DAYS'){
-                        input message:'Approve PRODUCTION Deployment?'
-                    }
-                    build job: 'Tomcat_staging'
-     
-                }
-                
-            }
-        }
     }
