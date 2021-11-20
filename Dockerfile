@@ -1,5 +1,5 @@
 # Pull base image 
-FROM tomcat:8.0 
+FROM tomcat 
 
 ADD **/*.war /usr/local/tomcat/webapps
  
